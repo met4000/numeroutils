@@ -63,14 +63,14 @@ export class FractionWildCard extends WildCard {
 /**
  * @param {Array<Card>} cardsInPlay 
  * @param {Array<Card>} cardsInHand 
- * @returns {{ card: Card, take: Array<Card> }} the longest 'take'
+ * @returns {{ finalCard: Card, take: Array<Card> }} the longest 'take'
  */
 export function findLongestTake(cardsInPlay, cardsInHand) {
   let availableCards = [...cardsInPlay, ...cardsInHand.filter(card => card.type !== CardType.NUMBER)];
   let handNums = cardsInHand.filter(card => card.type === CardType.NUMBER);
 
   let longestTakes = handNums.map((card, i) => ({
-    card,
+    finalCard: card,
     take: reverseArr(longestTakeGivenTarget(card.modFunc(0), availableCards, handNums.filter((_, _i) => _i !== i)) ?? [])
   }));
   let longestTake = longestTakes.reduce((r, take) => r.take.length > take.take.length ? r : take);
