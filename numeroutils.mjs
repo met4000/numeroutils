@@ -96,14 +96,15 @@ function longestTakeGivenTarget(target, cards, handNums) {
   for (let i in cards) {
     let card = rightCards.shift();
     let n = card.invFunc(target);
-
+    
     (() => {
       // * Possible rules; the website doesn't actually specify any of them *
-      // if (!Number.isInteger(n)) return;   // number must always be an integer
-      // if (n < 0) return;                  // number must always be positive
+      if (!Number.isInteger(n)) return;   // number must always be an integer
+      if (n < 0) return;                  // number must always be positive
 
       let lTake = longestTakeGivenTarget(n, leftCards.concat(rightCards), handNums);
       if (lTake === undefined) return;
+      if (lTake.length === 0 && card.type !== CardType.NUMBER) return;
       
       let take = [card].concat(lTake);
       if (take.length > (longestTake ?? []).length) longestTake = take;
