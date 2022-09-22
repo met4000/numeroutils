@@ -1,4 +1,9 @@
-import { findLongestTake, FractionWildCard, NumberCard, WildCard } from "./numeroutils.mjs";
+import { NumberCard } from "./basetypes.mjs";
+import { FractionWildCard } from "./cardtypes/FractionWildCard.mjs";
+import { PowerWildCard } from "./cardtypes/PowerWildCard.mjs";
+import { RootWildCard } from "./cardtypes/RootWildCard.mjs";
+import { SubWildCard } from "./cardtypes/SubWildCard.mjs";
+import { findLongestTake } from "./numeroutils.mjs";
 
 export function main(board, hand) {
   dispResults(board, hand, findLongestTake(board, hand));
@@ -46,25 +51,18 @@ main([
   new NumberCard(1),
   new NumberCard(4),
   new NumberCard(6),
-  new WildCard(
-    "-5",
-    n => n - 5,
-    n => n + 5,
-  ),
-  new WildCard(
-    "sqrt(n)",
-    n => Math.pow(n, 1/2),
-    n => Math.pow(n, 2),
-  ),
-  new WildCard(
-    "n^3",
-    n => Math.pow(n, 3),
-    n => Math.pow(n, 1/3),
-  ),
+
+  new SubWildCard(3),
+  new SubWildCard(5),
+
+  new PowerWildCard(2),
+  new RootWildCard(3),
+
   new FractionWildCard(1, 3),
   new FractionWildCard(2, 5),
   new FractionWildCard(4, 5),
   new FractionWildCard(1, 10),
+
   new NumberCard(9),
 ], [
   new NumberCard(3),
